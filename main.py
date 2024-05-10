@@ -1,27 +1,32 @@
-import tkinter as tk                
-from tkinter import font  as tkfont 
+from tkinter import Frame, Tk, BOTH, Text, Menu, END
+from tkinter import filedialog
+
+import tkinter as tk   
+from tkinter import font as tkfont
 import pandas as pd
+from tkinter import ttk
 
 class My_GUI(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+        self.title_font = tkfont.Font(
+            family='Helvetica', size=18,
+            weight="bold", slant="italic"
+        )
 
-
-        container = tk.Frame(self)
+        container = Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
+
         for F in (StartPage, Page_2):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
-
-
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
